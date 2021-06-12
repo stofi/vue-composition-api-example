@@ -1,8 +1,6 @@
 <template>
-  <p class="px-4">hi</p>
+  <p class="px-4"></p>
 </template>
-<script setup>
-
-</script>
+<script setup></script>
 
 <style></style>
