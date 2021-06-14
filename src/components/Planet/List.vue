@@ -1,13 +1,15 @@
 <template>
   <div class="p-2">
-    <div class="grid grid-cols-12 font-bold">
+    <div class="grid grid-cols-12">
       <div
         v-for="key in keys"
         :key="key"
         @click="toggleSortKey(key)"
         class="col-span-2"
+        :class="sortingKey === key ? 'font-bold' : ''"
       >
         {{ key }}
+        <span v-show="sortingKey === key">{{ sortingAsc ? '🖢' : '🖣' }}</span>
       </div>
     </div>
     <ul class="text-sm text-gray-600 dark:text-gray-300">
