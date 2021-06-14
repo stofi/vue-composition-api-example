@@ -15,6 +15,8 @@ export interface Planet {
   edited: string
 }
 
+export type PlanetKey = keyof Planet
+
 export interface Starship {
   name: string
   model: string

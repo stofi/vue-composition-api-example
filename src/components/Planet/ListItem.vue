@@ -1,26 +1,13 @@
 <template>
   <li v-if="planet" class="grid grid-cols-12">
-    <div class="col-span-3">
-      {{ planet.name }}
-    </div>
-    <div class="col-span-4"></div>
-    <div class="col-span-2">
-      {{ planet.population }}
-    </div>
-    <div class="col-span-1">
-      {{ planet.rotation_period }}
-    </div>
-    <div class="col-span-1">
-      {{ planet.orbital_period }}
-    </div>
-    <div class="col-span-1">
-      {{ planet.diameter }}
+    <div v-for="key in keys" :key="key" class="col-span-2">
+      {{ planet[key] }}
     </div>
   </li>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Planet } from '../../types'
+import { Planet, PlanetKey } from '../../types'
 
 export default defineComponent({
   name: 'PlanetListItem',
@@ -29,6 +16,10 @@ export default defineComponent({
     planet: {
       type: Object as PropType<Planet>,
       default: () => null,
+    },
+    keys: {
+      type: Array as PropType<PlanetKey[]>,
+      default: () => ['name'],
     },
   },
 })
