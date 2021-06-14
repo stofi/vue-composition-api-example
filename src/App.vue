@@ -1,6 +1,15 @@
 <template>
   <router-view />
-  <PlanetList :planets="planets" />
+  <PlanetList
+    :planets="planets"
+    :keys="[
+      'name',
+      'population',
+      'diameter',
+      'rotation_period',
+      'orbital_period',
+    ]"
+  />
   <StarshipList :starships="starships" />
 </template>
 
