@@ -1,7 +1,7 @@
 <template>
   <router-view />
-  <PlanetList
-    :planets="planets"
+  <ListIndex
+    :items="planets"
     :keys="[
       'name',
       'population',
@@ -10,21 +10,19 @@
       'orbital_period',
     ]"
   />
-  <StarshipList :starships="starships" />
+  <ListIndex :items="starships" :keys="['name', 'length', 'passengers']" />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import useDarkmode from './use/Darkmode'
+import ListIndex from './components/List/Index.vue'
 import { Planet, Starship } from './types'
-import PlanetList from './components/Planet/List.vue'
-import StarshipList from './components/Starship/List.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    PlanetList,
-    StarshipList,
+    ListIndex,
   },
   setup() {
     useDarkmode()

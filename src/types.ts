@@ -37,3 +37,5 @@ export interface Starship {
   created: string
   edited: string
 }
+
+export type StarshipKey = keyof Starship

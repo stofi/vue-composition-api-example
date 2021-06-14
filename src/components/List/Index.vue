@@ -13,32 +13,32 @@
       </div>
     </div>
     <ul class="text-sm text-gray-600 dark:text-gray-300">
-      <PlanetListItem
-        v-for="planet in planetsSorted"
-        :key="planet.name"
+      <ListItem
+        v-for="item in itemsSorted"
+        :key="item.name"
         :keys="keys"
-        :planet="planet"
+        :item="item"
       />
     </ul>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import PlanetListItem from './ListItem.vue'
-import { Planet, PlanetKey } from '../../types'
+import ListItem from './Item.vue'
+import { Planet, PlanetKey, Starship, StarshipKey } from '../../types'
 
 export default defineComponent({
-  name: 'PlanetList',
+  name: 'ListIndex',
   components: {
-    PlanetListItem,
+    ListItem,
   },
   props: {
-    planets: {
-      type: Array as PropType<Planet[]>,
+    items: {
+      type: Array as PropType<Planet[] | Starship[]>,
       default: () => [],
     },
     keys: {
-      type: Array as PropType<PlanetKey[]>,
+      type: Array as PropType<PlanetKey[] | StarshipKey[]>,
       default: () => ['name'],
     },
   },
@@ -58,15 +58,20 @@ export default defineComponent({
     },
   },
   computed: {
-    planetsSorted(): Planet[] {
-      const key = this.sortingKey as keyof Planet
-      const keyExists = this.keys.indexOf(key) !== -1
+    itemsSorted(): Planet[] | Starship[] {
+      const key = this.sortingKey as keyof Planet | keyof Starship[]
+      const keys = this.keys as any
+      const items = this.items as any
+      const keyExists = keys.indexOf(key) !== -1
+      const direction = this.sortingAsc ? 1 : -1
 
       return this.sortingEnabled && keyExists
-        ? this.sortingAsc
-          ? this.planets.slice().sort((a, b) => (a[key] > b[key] ? -1 : 1))
-          : this.planets.slice().sort((a, b) => (a[key] < b[key] ? -1 : 1))
-        : this.planets
+        ? items
+            .slice()
+            .sort((a: any, b: any) =>
+              a[key] > b[key] ? -direction : direction
+            )
+        : this.items
     },
   },
 })
